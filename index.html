@@ -1,0 +1,618 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Saurabh Shelake — Full-Stack Developer</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap 5 CSS (CDN) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Internal CSS: modern color palette, accessible contrast, and layout -->
+  <style>
+    :root{
+      --bg:#0f1724;         /* deep navy */
+      --card:#0b1220;       /* darker card */
+      --accent:#3ddc97;     /* fresh green accent */
+      --muted:#94a3b8;      /* muted text */
+      --glass: rgba(255,255,255,0.04);
+      --max-width:1100px;
+      --radius:12px;
+      --focus: 0 0 0 4px rgba(61,220,151,0.15);
+    }
+
+    html,body{
+      height:100%;
+      font-family: 'Poppins', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: linear-gradient(180deg, #eaf6f1 0%, #f4f7fb 100%);
+      color:#0b1220;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+
+    /* Top navbar */
+    .navbar{
+      background:transparent;
+      padding-top:1rem;
+    }
+
+    /* Hero */
+    .hero {
+      background: linear-gradient(180deg, rgba(11,18,32,0.02), rgba(11,18,32,0));
+      padding: 3.5rem 1rem;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .hero-card{
+      max-width:var(--max-width);
+      width:100%;
+      background: #ffffff;
+      border-radius: var(--radius);
+      padding:1.5rem;
+      box-shadow: 0 10px 30px rgba(16,24,40,0.08);
+      display:flex;
+      gap:1.25rem;
+      align-items:center;
+    }
+    .avatar {
+      min-width:140px;
+      max-width:160px;
+      border-radius:16px;
+      overflow:hidden;
+      border:4px solid #fff;
+      box-shadow: 0 6px 18px rgba(11,18,32,0.08);
+    }
+    .avatar img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+    .hero-info h1{
+      font-size:1.65rem;
+      margin-bottom:0.25rem;
+      font-weight:700;
+      color:#0b1220;
+    }
+    .hero-info p.lead{
+      color:var(--muted);
+      margin-bottom:0.75rem;
+    }
+    .cta-group .btn{
+      border-radius:10px;
+      padding:0.6rem 1rem;
+      font-weight:600;
+      box-shadow:none;
+      transition: transform .15s ease, box-shadow .15s ease;
+    }
+    .btn-primary{
+      background:linear-gradient(90deg,var(--accent),#10b981);
+      border: none;
+      color: #06211a;
+    }
+    .btn-primary:hover{ transform: translateY(-3px); box-shadow: 0 8px 20px rgba(16,185,129,0.12); }
+    .btn-outline{
+      background:transparent;
+      border: 1px solid rgba(11,18,32,0.06);
+      color: #0b1220;
+    }
+
+    /* Section headings */
+    section{
+      padding:2.5rem 1rem;
+    }
+    .container-sm{
+      max-width:var(--max-width);
+    }
+    .section-title{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      margin-bottom:1rem;
+    }
+    .section-title h2{
+      margin:0;
+      font-size:1.15rem;
+      color:#0b1220;
+      font-weight:700;
+    }
+    .section-title p{ margin:0; color:var(--muted); font-size:0.95rem; }
+
+    /* Cards & lists */
+    .card-proj{
+      border-radius:12px;
+      overflow:hidden;
+      border: none;
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+    .card-proj:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(11,18,32,0.08); }
+    .skill-badge{
+      display:inline-block;
+      padding:0.35rem 0.6rem;
+      border-radius:999px;
+      background:var(--glass);
+      color:#0b1220;
+      font-weight:600;
+      font-size:0.9rem;
+      margin:0.25rem;
+    }
+
+    /* Projects images placeholders */
+    .proj-img{
+      height:160px;
+      width:100%;
+      background: linear-gradient(135deg, rgba(61,220,151,0.12), rgba(16,185,129,0.04));
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color: rgba(11,18,32,0.28);
+      font-weight:700;
+      font-size:1.05rem;
+    }
+
+    /* Contact card */
+    .contact-card{
+      background: linear-gradient(180deg, #fff, #fbfffb);
+      border-radius: 12px;
+      padding:1.25rem;
+      box-shadow: 0 8px 24px rgba(11,18,32,0.06);
+    }
+
+    /* Footer */
+    footer{
+      padding:1.25rem;
+      text-align:center;
+      color:var(--muted);
+      font-size:0.95rem;
+    }
+
+    /* Responsive behavior */
+    @media (max-width: 768px){
+      .hero-card{ flex-direction:column; text-align:center; padding:1rem; }
+      .avatar{ margin-top:6px; }
+      .hero-info{ width:100%; }
+      .proj-img{ height:120px; }
+    }
+
+    /* Focus & accessibility */
+    a:focus, button:focus, input:focus, textarea:focus{
+      outline: none;
+      box-shadow: var(--focus);
+      border-radius:8px;
+    }
+
+    /* Small helper */
+    .muted { color: var(--muted); font-size:0.95rem; }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container container-sm">
+      <a class="navbar-brand fw-bold" href="#home" aria-label="Saurabh Shelake homepage">Saurabh Shelake</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu"
+              aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav ms-auto align-items-lg-center">
+          <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
+          <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
+          <li class="nav-item"><a class="nav-link" href="#experience">Experience</a></li>
+          <li class="nav-item"><a class="nav-link" href="#education">Education</a></li>
+          <li class="nav-item"><a class="nav-link btn btn-sm btn-outline ms-2" href="#contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header id="home" class="hero" role="banner" aria-label="Hero section">
+    <div class="hero-card container-sm" role="region" aria-labelledby="hero-heading">
+      <!-- Profile image: use the exact filename Photo.jpg as requested -->
+      <div class="avatar" aria-hidden="false">
+        <img src="Photo.jpg" alt="Profile photo of Saurabh Shelake">
+      </div>
+
+      <div class="hero-info">
+        <h1 id="hero-heading">Saurabh Shelake</h1>
+        <p class="lead muted">Entry-level Full-Stack Developer • Python • Django • Web Development</p>
+
+        <p class="muted mb-3">
+          Motivated developer passionate about building practical web applications, learning modern stacks, and solving problems through clean code.
+        </p>
+
+        <!-- CTA buttons: live demo and contact -->
+        <div class="cta-group d-flex flex-wrap gap-2">
+          <a class="btn btn-primary" href="https://saurabhshelake.pythonanywhere.com/" target="_blank" rel="noopener noreferrer" aria-label="View live portfolio demo">View Live Demo</a>
+          <a class="btn btn-outline" href="#contact" aria-label="Contact Saurabh">Get In Touch</a>
+        </div>
+
+        <!-- Social links -->
+        <div class="mt-3 d-flex gap-2 align-items-center" aria-hidden="false">
+          <!-- GitHub -->
+          <a class="d-inline-flex align-items-center gap-2 text-decoration-none" href="https://github.com/saurabhshelake07" target="_blank" rel="noopener noreferrer" aria-label="Saurabh's GitHub">
+            <!-- Simple inline GitHub icon -->
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="#0b1220" aria-hidden="true" focusable="false">
+              <path d="M12 .5C5.6.5.5 5.6.5 12.1c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.6v-2.1c-3.2.7-3.9-1.4-3.9-1.4-.5-1.1-1.1-1.4-1.1-1.4-.9-.6.1-.6.1-.6 1 .1 1.6 1 1.6 1 .9 1.6 2.5 1.2 3.2.9.1-.7.4-1.2.8-1.5-2.6-.3-5.3-1.3-5.3-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.6-1.6.1-3.2 0 0 1-.3 3.3 1.2a11.1 11.1 0 0 1 6 0C18 4.7 19 5 19 5c.7 1.6.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.7 5.6-5.3 5.9.4.3.8 1 .8 2v3c0 .4.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.6 18.4.5 12 .5z"/>
+            </svg>
+            <span class="muted d-none d-sm-inline">GitHub</span>
+          </a>
+
+          <!-- LinkedIn -->
+          <a class="d-inline-flex align-items-center gap-2 text-decoration-none" href="https://linkedin.com/in/saurabh-shelake19" target="_blank" rel="noopener noreferrer" aria-label="Saurabh's LinkedIn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="#0b1220" aria-hidden="true" focusable="false">
+              <path d="M4.98 3.5C4.98 4.88 3.86 6 2.48 6S0 4.88 0 3.5C0 2.12 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM0 8.25h4.99V24H0V8.25zm7.48 0H12V10.2h.07c.64-1.21 2.2-2.5 4.53-2.5 4.84 0 5.73 3.19 5.73 7.33V24h-4.99v-7.88c0-1.88-.03-4.3-2.62-4.3-2.63 0-3.03 2.05-3.03 4.18V24H7.48V8.25z"/>
+            </svg>
+            <span class="muted d-none d-sm-inline">LinkedIn</span>
+          </a>
+
+          <!-- Email -->
+          <a class="d-inline-flex align-items-center gap-2 text-decoration-none" href="mailto:saurabhshelake5051@gmail.com" aria-label="Email Saurabh">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="#0b1220" aria-hidden="true" focusable="false">
+              <path d="M20 4H4C2.9 4 2 4.9 2 6v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5L4 8V6l8 5 8-5v2z"/>
+            </svg>
+            <span class="muted d-none d-sm-inline">Email</span>
+          </a>
+
+          <!-- Phone -->
+          <div class="muted d-inline-flex align-items-center gap-2" aria-hidden="false">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#0b1220" aria-hidden="true" focusable="false">
+              <path d="M6.62 10.79a15.534 15.534 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24 11.36 11.36 0 0 0 3.56.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h2.5a1 1 0 0 1 1 1c0 1.22.2 2.41.57 3.56a1 1 0 0 1-.25 1.01l-2.2 2.2z"/>
+            </svg>
+            <span class="d-none d-sm-inline">+91 7666045051</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- ABOUT -->
+  <main>
+    <section id="about" aria-labelledby="about-heading">
+      <div class="container container-sm">
+        <div class="section-title">
+          <h2 id="about-heading">About Me</h2>
+          <p class="ms-auto muted">A short introduction</p>
+        </div>
+
+        <div class="row g-4 align-items-center">
+          <div class="col-lg-7">
+            <p class="muted">
+              Motivated entry-level Full-Stack Developer with strong knowledge of Python, Django, and web development.
+              Passionate about solving problems and eager to apply skills to real-world projects while learning and growing.
+              Strong team player with adaptability and communication skills to thrive in dynamic environments.
+            </p>
+
+            <ul class="list-unstyled mt-3">
+              <li><strong>Location:</strong> Karve Nagar, Pune</li>
+              <li><strong>Availability:</strong> Open to internships / entry-level roles</li>
+              <li><strong>Languages:</strong> English, Hindi, Marathi</li>
+            </ul>
+          </div>
+
+          <div class="col-lg-5">
+            <!-- Quick facts card -->
+            <div class="contact-card" role="complementary" aria-label="Quick facts">
+              <h3 class="h6">Quick Facts</h3>
+              <p class="muted mb-2">B.Tech (CSE) — Shivaji University (2021-2025) • CGPA: 7.2</p>
+              <p class="muted mb-0">Certificate: Full Stack Python Developer (Adhyayan Institute), Python & Django (Udemy)</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" aria-labelledby="skills-heading">
+      <div class="container container-sm">
+        <div class="section-title">
+          <h2 id="skills-heading">Skills</h2>
+          <p class="ms-auto muted">Technologies & tools I use</p>
+        </div>
+
+        <!-- Skills badges -->
+        <div class="mb-4" role="list" aria-label="Skill list">
+          <!-- Programming -->
+          <div class="mb-2"><strong>Programming</strong></div>
+          <div role="listitem" aria-label="Programming skills">
+            <span class="skill-badge">Python (OOP, MVC)</span>
+            <span class="skill-badge">C#</span>
+            <span class="skill-badge">Core Java</span>
+          </div>
+
+          <!-- Web -->
+          <div class="mt-3 mb-2"><strong>Web Development</strong></div>
+          <div role="listitem" aria-label="Web skills">
+            <span class="skill-badge">Django (REST APIs)</span>
+            <span class="skill-badge">React</span>
+            <span class="skill-badge">HTML5</span>
+            <span class="skill-badge">CSS3 & Bootstrap</span>
+          </div>
+
+          <!-- Databases -->
+          <div class="mt-3 mb-2"><strong>Databases & Tools</strong></div>
+          <div role="listitem" aria-label="Database skills">
+            <span class="skill-badge">SQLite</span>
+            <span class="skill-badge">MySQL</span>
+            <span class="skill-badge">MongoDB</span>
+            <span class="skill-badge">Git & GitHub</span>
+          </div>
+        </div>
+
+        <!-- Experience bar example (visual but accessible) -->
+        <div class="row g-3">
+          <div class="col-md-6">
+            <div class="card p-3 card-proj" aria-hidden="false">
+              <h3 class="h6 mb-2">Development Workflow</h3>
+              <p class="muted">Comfortable with version control using Git, development in VS Code / PyCharm, and deploying to PythonAnywhere and GitHub Pages.</p>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card p-3 card-proj">
+              <h3 class="h6 mb-2">Testing & Debugging</h3>
+              <p class="muted">Familiar with testing basics, debugging tools, and iterating quickly to fix issues in projects.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" aria-labelledby="projects-heading">
+      <div class="container container-sm">
+        <div class="section-title">
+          <h2 id="projects-heading">Projects</h2>
+          <p class="ms-auto muted">Selected project highlights</p>
+        </div>
+
+        <div class="row g-4">
+          <!-- Personal Portfolio -->
+          <div class="col-md-6">
+            <article class="card card-proj h-100" aria-labelledby="proj1">
+              <div class="proj-img" role="img" aria-label="Portfolio site placeholder image">Portfolio Website</div>
+              <div class="card-body">
+                <h3 id="proj1" class="h6">Personal Portfolio Website</h3>
+                <p class="muted">Designed and developed a responsive portfolio to showcase projects and skills. Implemented responsive UI, deployed on PythonAnywhere / GitHub Pages.</p>
+                <p class="muted"><strong>Tech:</strong> HTML, CSS, JavaScript, GitHub Pages</p>
+                <div class="d-flex gap-2 mt-2">
+                  <a class="btn btn-primary btn-sm" href="https://saurabhshelake.pythonanywhere.com/" target="_blank" rel="noopener noreferrer">Live Demo</a>
+                  <a class="btn btn-outline btn-sm" href="https://github.com/saurabhshelake07" target="_blank" rel="noopener noreferrer">Source</a>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <!-- ParkNow -->
+          <div class="col-md-6">
+            <article class="card card-proj h-100" aria-labelledby="proj2">
+              <div class="proj-img" role="img" aria-label="ParkNow placeholder">ParkNow</div>
+              <div class="card-body">
+                <h3 id="proj2" class="h6">ParkNow — Parking Management</h3>
+                <p class="muted">Full-stack app that connects parking owners with users for slot booking and management. Secure authentication and OTP/password reset features implemented.</p>
+                <p class="muted"><strong>Tech:</strong> Django, Python, Bootstrap, MySQL</p>
+                <div class="d-flex gap-2 mt-2">
+                  <a class="btn btn-primary btn-sm" href="https://saurabhshelake.pythonanywhere.com/" target="_blank" rel="noopener noreferrer">Live Demo</a>
+                  <a class="btn btn-outline btn-sm" href="https://github.com/saurabhshelake07" target="_blank" rel="noopener noreferrer">Source</a>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <!-- Shoesify -->
+          <div class="col-md-6">
+            <article class="card card-proj h-100" aria-labelledby="proj3">
+              <div class="proj-img" role="img" aria-label="Shoesify placeholder">Shoesify</div>
+              <div class="card-body">
+                <h3 id="proj3" class="h6">Shoesify — Shoe Collection Manager</h3>
+                <p class="muted">CRUD application for managing shoe collections with authentication and dashboard to manage entries.</p>
+                <p class="muted"><strong>Tech:</strong> Django, Python, Bootstrap, SQLite</p>
+                <div class="d-flex gap-2 mt-2">
+                  <a class="btn btn-primary btn-sm" href="https://saurabhshelake.pythonanywhere.com/" target="_blank" rel="noopener noreferrer">Live Demo</a>
+                  <a class="btn btn-outline btn-sm" href="https://github.com/saurabhshelake07" target="_blank" rel="noopener noreferrer">Source</a>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <!-- Generic / future project -->
+          <div class="col-md-6">
+            <article class="card card-proj h-100" aria-labelledby="proj4">
+              <div class="proj-img" role="img" aria-label="Project placeholder">Coming Soon</div>
+              <div class="card-body">
+                <h3 id="proj4" class="h6">More Projects</h3>
+                <p class="muted">Working on additional personal and collaborative projects to expand full-stack and deployment skills.</p>
+                <div class="d-flex gap-2 mt-2">
+                  <a class="btn btn-outline btn-sm" href="https://github.com/saurabhshelake07" target="_blank" rel="noopener noreferrer">Explore GitHub</a>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE (Projects are treated as practical experience for an entry-level profile) -->
+    <section id="experience" aria-labelledby="experience-heading">
+      <div class="container container-sm">
+        <div class="section-title">
+          <h2 id="experience-heading">Experience & Projects (Practical Experience)</h2>
+          <p class="ms-auto muted">Hands-on project work and responsibilities</p>
+        </div>
+
+        <div class="timeline">
+          <!-- Each list item is semantic article describing responsibilities without making claims beyond resume -->
+          <article class="card p-3 mb-3" aria-labelledby="exp1">
+            <h3 id="exp1" class="h6">Personal Projects — Full-Stack Development</h3>
+            <p class="muted mb-1"><strong>Responsibilities:</strong> Designed and implemented full-stack features (authentication, CRUD, dashboard views), wrote REST endpoints (Django), and deployed apps to PythonAnywhere.</p>
+            <p class="muted mb-0"><strong>Outcome:</strong> Delivered user-facing applications for portfolio and practical learning; improved skills in backend, frontend, and deployment.</p>
+          </article>
+
+          <article class="card p-3 mb-3" aria-labelledby="exp2">
+            <h3 id="exp2" class="h6">Software Development Practices</h3>
+            <p class="muted mb-1">Adopted version control with Git, iterative debugging, and consistent UI/UX improvements across projects.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- EDUCATION -->
+    <section id="education" aria-labelledby="education-heading">
+      <div class="container container-sm">
+        <div class="section-title">
+          <h2 id="education-heading">Education</h2>
+          <p class="ms-auto muted">Academic background</p>
+        </div>
+
+        <div class="row g-3">
+          <div class="col-md-8">
+            <div class="card p-3 card-proj">
+              <h3 class="h6">BACHELOR OF TECHNOLOGY (Computer Science & Engineering)</h3>
+              <p class="muted mb-0">Shivaji University, Kolhapur — CGPA: 7.2 (2021–2025)</p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card p-3 card-proj">
+              <h3 class="h6">Higher Secondary</h3>
+              <p class="muted mb-0">Yashwantrao Chavan Warana Mahavidyalaya — 85% (2020–2021)</p>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="card p-3 card-proj">
+              <h3 class="h6">Secondary School</h3>
+              <p class="muted mb-0">Mohare Highschool — 71% (2018–2019)</p>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="card p-3 card-proj">
+              <h3 class="h6">Certificates</h3>
+              <ul class="muted mb-0">
+                <li>Full Stack Python Developer — Adhyayan Institute, Pune</li>
+                <li>Java Programming with JDBC — APTTECH Solution</li>
+                <li>Python and Django Framework — Udemy</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" aria-labelledby="contact-heading">
+      <div class="container container-sm">
+        <div class="section-title">
+          <h2 id="contact-heading">Contact</h2>
+          <p class="ms-auto muted">Let's connect</p>
+        </div>
+
+        <div class="row g-4">
+          <!-- Contact form (mailto fallback) -->
+          <div class="col-lg-7">
+            <div class="card p-3 contact-card">
+              <h3 class="h6">Send a message</h3>
+              <p class="muted">Prefer email? Click Send to open your mail client with a prefilled message, or use the contact details on the right.</p>
+
+              <!-- Simple contact form that creates a mailto link on submit -->
+              <form id="contactForm" onsubmit="sendEmail(event)" aria-label="Contact form">
+                <div class="mb-3">
+                  <label for="name" class="form-label">Your name</label>
+                  <input id="name" class="form-control" type="text" placeholder="Your name" required aria-required="true">
+                </div>
+
+                <div class="mb-3">
+                  <label for="email" class="form-label">Your email</label>
+                  <input id="email" class="form-control" type="email" placeholder="you@example.com" required aria-required="true">
+                </div>
+
+                <div class="mb-3">
+                  <label for="message" class="form-label">Message</label>
+                  <textarea id="message" class="form-control" rows="5" placeholder="Tell me about your project or opportunity" required aria-required="true"></textarea>
+                </div>
+
+                <button class="btn btn-primary" type="submit" aria-label="Send email">Send</button>
+              </form>
+            </div>
+          </div>
+
+          <!-- Contact details -->
+          <aside class="col-lg-5">
+            <div class="card p-3 contact-card" aria-label="Contact details">
+              <h3 class="h6">Contact Details</h3>
+
+              <p class="mb-1"><strong>Email:</strong> <a href="mailto:saurabhshelake5051@gmail.com">saurabhshelake5051@gmail.com</a></p>
+              <p class="mb-1"><strong>Phone:</strong> <a href="tel:+917666045051">+91 7666045051</a></p>
+              <p class="mb-1"><strong>Location:</strong> Karve Nagar, Pune</p>
+
+              <hr>
+
+              <h4 class="h6 mb-2">Links</h4>
+              <p class="mb-1"><a href="https://github.com/saurabhshelake07" target="_blank" rel="noopener noreferrer">GitHub</a></p>
+              <p class="mb-1"><a href="https://linkedin.com/in/saurabh-shelake19" target="_blank" rel="noopener noreferrer">LinkedIn</a></p>
+              <p class="mb-0"><a href="https://saurabhshelake.pythonanywhere.com/" target="_blank" rel="noopener noreferrer">Live Projects / Portfolio</a></p>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer role="contentinfo">
+    <div class="container container-sm">
+      <p>© <span id="year"></span> Saurabh Shelake &middot; Built with HTML, CSS & JavaScript · <a href="#home">Back to top</a></p>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS (CDN) and small internal JS for interactivity -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // Set current year in footer
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Contact form handler: constructs a mailto link (works offline without server)
+    function sendEmail(event) {
+      event.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+      // Basic sanitation for mailto body
+      const subject = encodeURIComponent('Portfolio Contact from ' + name);
+      const body = encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\n\n' + message);
+
+      // Open default mail client with prefilled fields
+      const mailto = `mailto:saurabhshelake5051@gmail.com?subject=${subject}&body=${body}`;
+      window.location.href = mailto;
+    }
+
+    // Smooth scrolling for anchor links (accessibility-friendly)
+    (function() {
+      const links = document.querySelectorAll('a[href^="#"]');
+      links.forEach(link => {
+        link.addEventListener('click', function(e) {
+          const target = document.querySelector(this.hash);
+          if (target) {
+            e.preventDefault();
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            // update focus for screen readers
+            target.setAttribute('tabindex', '-1');
+            target.focus({ preventScroll: true });
+          }
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
